@@ -1,0 +1,6 @@
+mcproxy
+*.exe
+*.test
+/dist/
+/bin/
+/pkg/ 
