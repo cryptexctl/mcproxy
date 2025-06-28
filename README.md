@@ -12,10 +12,10 @@
 
 ## Архитектура
 ```
-Client ───► mcproxy (VPS) ───► Velocity ───► Purpur
-    ^                             ^
-    │ TCP+UDP                     │ ip_forward (modern)
-    │ PROXY v1                    │
+Client ----------> mcproxy (VPS) --------> Velocity --------> Purpur
+    ^                             ^                            
+    │ TCP+UDP                     │ ip_forward (modern)         
+    │ PROXY v1                    │                            
     v                             v
   PlasmoVoice               LimboAuth / плагины
 ```
@@ -31,7 +31,7 @@ Client ───► mcproxy (VPS) ───► Velocity ───► Purpur
 $ go build -o mcproxy
 ```
 
-Требуется Go ≥1.21. Модуль зависимостей — `go.mod`.
+Требуется Go 1.21.4 Модуль зависимостей - `go.mod`.
 
 ## Конфигурация
 Файл `config.toml`:
@@ -68,14 +68,14 @@ sudo systemctl enable --now mcproxy
 ## Две схемы подключения
 
 Velocity не умеет одновременно принимать обычные соединения и требовать PROXY-protocol.  
-Решение — запустить два экземпляра:
+Решение - запустить два экземпляра:
 
 ```toml
-# 25565 — прямые игроки, без PROXY
+# 25565 - прямые игроки, без PROXY
 bind = "0.0.0.0:25565"
 haproxy-protocol = false
 
-# 25566 — трафик от mcproxy, PROXY обязателен
+# 25566 - трафик от mcproxy, PROXY обязателен
 bind = "0.0.0.0:25566"
 haproxy-protocol = true
 ```
