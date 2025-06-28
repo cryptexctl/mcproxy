@@ -15,6 +15,8 @@ import (
 	"github.com/pelletier/go-toml/v2"
 )
 
+var version = "1.0.0"
+
 type Config struct {
 	Listen struct {
 		TCP string `toml:"tcp"`
@@ -55,6 +57,8 @@ func main() {
 	log.SetFlags(log.LstdFlags | log.Lmicroseconds)
 	cfg := loadConfig("config.toml")
 	idle := time.Duration(cfg.IdleTimeoutSeconds) * time.Second
+
+	log.Printf("mcproxy %s starting; tcp=%s udp=%s backend=%s", version, cfg.Listen.TCP, cfg.Listen.UDP, cfg.Backend.TCP)
 
 	go udpForward(cfg.Listen.UDP, cfg.Backend.UDP, idle)
 
