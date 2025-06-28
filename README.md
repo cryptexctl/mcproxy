@@ -12,7 +12,7 @@
 
 ## Архитектура
 ```
-Client ----------> mcproxy (VPS) --------> Velocity --------> Purpur
+Client ----> mcproxy (VPS) --> Velocity --------> Purpur
     ^                             ^                            
     │ TCP+UDP                     │ ip_forward (modern)         
     │ PROXY v1                    │                            
